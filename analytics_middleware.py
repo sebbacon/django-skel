@@ -12,7 +12,7 @@ ga_html = """
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
 
-</script>"""
+</script></head>"""
 
 class GoogleAnalyticsMiddleware:
     def process_response(self, request, response):
@@ -20,5 +20,5 @@ class GoogleAnalyticsMiddleware:
         if ga_id:
             current = response.content
             replacement = ga_html % ga_id
-            response.content = current.replace("</body>", replacement)
+            response.content = current.replace("</head>", replacement)
         return response
